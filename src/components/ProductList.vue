@@ -23,4 +23,3 @@ export default {
   flex-wrap: wrap;
 }
 </style>
-</style>
