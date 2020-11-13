@@ -7,12 +7,19 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2 col-12">
-					<ProductFilter
-						v-for="(values, title) of filters"
-						:key="title"
-						:title="title"
-						:values="values"
-					/>
+					<template v-for="(values, title) of filters">
+						<RegionFilter
+							v-if="title === 'region'"
+							:regions="values"
+							:key="title"
+						></RegionFilter>
+						<ProductFilter
+							v-else
+							:key="title"
+							:title="title"
+							:values="values"
+						/>
+					</template>
 				</div>
 				<div class="col-md-10">
 					<ProductList :products="products" />
@@ -25,10 +32,11 @@
 <script>
 import ProductList from '@/components/ProductList';
 import ProductFilter from '@/components/filters/ProductFilter';
+import RegionFilter from '@/components/filters/RegionFilter';
 
 export default {
 	name: 'ProductsContainer',
-	components: { ProductFilter, ProductList },
+	components: { RegionFilter, ProductFilter, ProductList },
 	data() {
 		return {
 			products: [],
