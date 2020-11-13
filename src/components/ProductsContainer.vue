@@ -5,7 +5,7 @@
         <div class="row">
           <div class="row">
             <div class="col-md-10 col-12">
-                <ProductList :products="[]" />
+                <ProductList :products="products" />
             </div>
           </div>
         </div>
@@ -17,7 +17,23 @@
 import ProductList from "@/components/ProductList";
 export default {
 name: "ProductsContainer",
-  components: {ProductList}
+  components: {ProductList},
+  data(){
+    return {
+      products:[]
+    }
+  },
+  async created() {
+        try {
+            const response = await fetch('http://www.amock.io/api/nithish.cir/projects');
+            const data = await response.json() ;
+            console.log(data);
+            this.products = data.result ;
+        }
+        catch (e){
+          console.log(e);
+        }
+  }
 }
 </script>
 

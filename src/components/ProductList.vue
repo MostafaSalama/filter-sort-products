@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Please Display All Products</h1>
+    <p v-for="p of products" :key="p.id">
+      {{p.title}}
+    </p>
   </div>
 </template>
 
