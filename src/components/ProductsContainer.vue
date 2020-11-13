@@ -2,6 +2,7 @@
   <div class="products-container">
     <div class="container-fluid">
 <!--      for applied filter and sort by and number of results-->
+      {{products.length}}
         <div class="row">
           <div class="row">
             <div class="col-md-10 col-12">
@@ -27,7 +28,6 @@ name: "ProductsContainer",
         try {
             const response = await fetch('http://www.amock.io/api/nithish.cir/projects');
             const data = await response.json() ;
-            console.log(data);
             this.products = data.result ;
         }
         catch (e){
