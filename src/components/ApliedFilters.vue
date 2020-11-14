@@ -3,11 +3,13 @@
 		<h3>Applied Filters</h3>
 		<div>
 			<div class="clear-container">
-				<button class="btn text-primary">Clear all</button>
+				<button class="btn text-primary" @click="clearAppliedFilters">
+					Clear all
+				</button>
 			</div>
 			<span
 				class="badge m-2 p-2 badge-bill badge-light text-primary"
-				v-for="filter of appliedFilters"
+				v-for="filter of currentAppliedFilters"
 				:key="filter"
 			>
 				{{ filter }}
@@ -24,6 +26,21 @@
 <script>
 export default {
 	name: 'AppliedFilters',
+	data() {
+		return {
+			currentAppliedFilters: [],
+		};
+	},
+	methods: {
+		clearAppliedFilters() {
+			this.currentAppliedFilters = [];
+		},
+	},
+	watch: {
+		appliedFilters(values) {
+			this.currentAppliedFilters = values;
+		},
+	},
 	props: {
 		appliedFilters: Array,
 	},

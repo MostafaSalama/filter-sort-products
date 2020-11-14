@@ -1,15 +1,12 @@
 <template>
 	<div class="cold-md-2">
-		<label for="sort_by" class="mr-2">Sort By</label>
-		<select id="sort_by" class="form-inline-control" v-model="selectedSort">
-			<option
-				v-for="sortValue in sortValues"
-				:key="sortValue.name"
-				:value="sortValue.code"
-			>
-				{{ sortValue.name }}
-			</option>
-		</select>
+		<label>Sort By</label>
+		<v-select
+			label="name"
+			:options="sortValues"
+			:reduce="(f) => f.code"
+			v-model="selectedSort"
+		></v-select>
 	</div>
 </template>
 
@@ -21,7 +18,11 @@ export default {
 			selectedSort: '',
 		};
 	},
-	mounted() {},
+	created() {
+		this.selectedSort = this.sortValues.filter(
+			(value) => value.selected,
+		)[0].code;
+	},
 	watch: {
 		selectedSort(value) {
 			this.$emit('updateSortQuery', value);

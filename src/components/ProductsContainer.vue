@@ -92,6 +92,7 @@ export default {
 			this.filters = data.filters;
 			this.pagination = data.pagination;
 			this.appliedFilters = data.appliedfilters;
+			console.log(this.appliedFilters);
 			this.sortValues = data.sortby;
 		} catch (e) {
 			console.log(e);
