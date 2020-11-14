@@ -3,7 +3,7 @@
 		<div class="container-fluid">
 			<!--      for applied filter and sort by and number of results-->
 			<div class="row">
-				<AppliedFilters />
+				<AppliedFilters :applied-filters="appliedFilters" />
 				<ResultLength :products-length="products.length" />
 				<SortBy />
 			</div>
@@ -69,6 +69,7 @@ export default {
 			products: [],
 			filters: [],
 			pagination: {},
+			appliedFilters: [],
 		};
 	},
 	async created() {
@@ -80,6 +81,7 @@ export default {
 			this.products = data.result;
 			this.filters = data.filters;
 			this.pagination = data.pagination;
+			this.appliedFilters = data.appliedfilters;
 		} catch (e) {
 			console.log(e);
 		}
