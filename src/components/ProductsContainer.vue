@@ -41,6 +41,7 @@
 		<ProductsPagination
 			:total-pages="pagination.totalPages"
 			:current-page="pagination.currentPage"
+			@updatePageQuery="updatePageQuery"
 		/>
 	</div>
 </template>
@@ -138,6 +139,14 @@ export default {
 				return;
 			}
 			this.currentURL.searchParams.delete('fabricator');
+			history.pushState(
+				'',
+				'',
+				this.currentURL.search.replace(/%3A/gi, ':'),
+			);
+		},
+		updatePageQuery(value) {
+			this.currentURL.searchParams.set('page', value);
 			history.pushState(
 				'',
 				'',

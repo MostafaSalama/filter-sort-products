@@ -28,6 +28,9 @@ export default {
 		currentPage(value) {
 			this.selectedPage = value;
 		},
+		selectedPage(value) {
+			this.$emit('updatePageQuery', value);
+		},
 	},
 	props: {
 		currentPage: Number,
