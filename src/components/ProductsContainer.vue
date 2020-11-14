@@ -3,6 +3,7 @@
 		<div class="container-fluid">
 			<!--      for applied filter and sort by and number of results-->
 			<div class="row">
+				<AppliedFilters />
 				<div class="col-md-6 col-12"></div>
 			</div>
 			<div class="row">
@@ -40,10 +41,17 @@ import ProductList from '@/components/ProductList';
 import ProductFilter from '@/components/filters/ProductFilter';
 import RegionFilter from '@/components/filters/RegionFilter';
 import FabricatorFilter from '@/components/filters/FabricatorFilter';
+import AppliedFilters from '@/components/ApliedFilters';
 
 export default {
 	name: 'ProductsContainer',
-	components: { FabricatorFilter, RegionFilter, ProductFilter, ProductList },
+	components: {
+		AppliedFilters,
+		FabricatorFilter,
+		RegionFilter,
+		ProductFilter,
+		ProductList,
+	},
 	data() {
 		return {
 			products: [],
