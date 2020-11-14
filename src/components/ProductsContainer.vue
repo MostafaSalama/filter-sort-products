@@ -4,6 +4,20 @@
 			<!--      for applied filter and sort by and number of results-->
 			<div class="row">
 				<AppliedFilters />
+        <ResultLength :products-length="products.length"/>
+        <div class="offset-8">
+          <label for="sort_by" class="mr-2">Sort By</label>
+          <select
+              id="sort_by"
+              class="form-inline-control"
+          >
+            <option value="newest">newest</option>
+            <option value="oldest">oldest</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+          </select>
+        </div>
+      </div>
 				<div class="col-md-6 col-12"></div>
 			</div>
 			<div class="row">
@@ -42,10 +56,12 @@ import ProductFilter from '@/components/filters/ProductFilter';
 import RegionFilter from '@/components/filters/RegionFilter';
 import FabricatorFilter from '@/components/filters/FabricatorFilter';
 import AppliedFilters from '@/components/ApliedFilters';
+import ResultLength from "@/components/ResultLength";
 
 export default {
 	name: 'ProductsContainer',
 	components: {
+    ResultLength,
 		AppliedFilters,
 		FabricatorFilter,
 		RegionFilter,
