@@ -16,6 +16,7 @@
 						v-if="title === 'region'"
 						:regions="values"
 						:key="title"
+						@updateRegionQuery="updateRegionQuery"
 					></RegionFilter>
 					<FabricatorFilter
 						:key="title"
@@ -102,9 +103,23 @@ export default {
 		updateQuery(name, values) {
 			if (values.length) {
 				this.currentURL.searchParams.set(name, values.join(':'));
+				history.pushState(
+					'',
+					'',
+					this.currentURL.search.replace(/%3A/gi, ':'),
+				);
 			} else {
 				this.currentURL.searchParams.delete(name);
+				console.log(this.currentURL.search);
+				history.pushState(
+					'',
+					'',
+					this.currentURL.search.replace(/%3A/gi, ':'),
+				);
 			}
+		},
+		updateRegionQuery(value) {
+			this.currentURL.searchParams.set('region', value);
 			history.pushState(
 				'',
 				'',

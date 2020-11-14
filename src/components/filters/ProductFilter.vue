@@ -15,12 +15,14 @@
 						type="search"
 						class="form-control"
 						:placeholder="`search ${title}`"
-						name="search_brands"
+						:name="`search_${title}`"
 					/>
 				</label>
 			</div>
 			<div class="clear-container">
-				<button class="btn text-primary">Clear all</button>
+				<button class="btn text-primary" @click="clearSelectedValues">
+					Clear all
+				</button>
 			</div>
 			<div class="form-check" v-for="value of values">
 				<input
@@ -67,6 +69,9 @@ export default {
 	methods: {
 		onToggle() {
 			this.toggleText = this.toggleText === '+' ? '-' : '+';
+		},
+		clearSelectedValues() {
+			this.selectedValues = [];
 		},
 	},
 	props: {

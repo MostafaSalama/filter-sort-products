@@ -40,6 +40,11 @@ export default {
 	created() {
 		this.selectedRegion = this.regions.filter((r) => r.selected)[0].code;
 	},
+	watch: {
+		selectedRegion(value) {
+			this.$emit('updateRegionQuery', value);
+		},
+	},
 	methods: {
 		onToggle() {
 			this.toggleText = this.toggleText === '+' ? '-' : '+';
