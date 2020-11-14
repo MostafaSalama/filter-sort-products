@@ -13,6 +13,12 @@
 							:regions="values"
 							:key="title"
 						></RegionFilter>
+						<FabricatorFilter
+							:key="title"
+							v-else-if="title === 'fabricator'"
+							:values="values"
+							:title="title"
+						></FabricatorFilter>
 						<ProductFilter
 							v-else
 							:key="title"
@@ -33,10 +39,11 @@
 import ProductList from '@/components/ProductList';
 import ProductFilter from '@/components/filters/ProductFilter';
 import RegionFilter from '@/components/filters/RegionFilter';
+import FabricatorFilter from '@/components/filters/FabricatorFilter';
 
 export default {
 	name: 'ProductsContainer',
-	components: { RegionFilter, ProductFilter, ProductList },
+	components: { FabricatorFilter, RegionFilter, ProductFilter, ProductList },
 	data() {
 		return {
 			products: [],
