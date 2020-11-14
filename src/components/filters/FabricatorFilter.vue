@@ -10,7 +10,9 @@
 		</div>
 		<div class="elements-container" v-if="toggleText === '-'">
 			<div class="clear-container">
-				<button class="btn text-primary">Clear all</button>
+				<button class="btn text-primary" @click="clearSelectedValue">
+					Clear all
+				</button>
 			</div>
 			<div class="form-check">
 				<v-select
@@ -42,10 +44,17 @@ export default {
 		console.log(this.values);
 		this.selected = this.values.filter((value) => value.selected)[0].code;
 	},
-	watch: {},
+	watch: {
+		selected(value) {
+			this.$emit('updateFabricatorQuery', value);
+		},
+	},
 	methods: {
 		onToggle() {
 			this.toggleText = this.toggleText === '+' ? '-' : '+';
+		},
+		clearSelectedValue() {
+			this.selected = '';
 		},
 	},
 	props: {

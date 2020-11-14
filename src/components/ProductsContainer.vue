@@ -23,6 +23,7 @@
 						v-else-if="title === 'fabricator'"
 						:values="values"
 						:title="title"
+						@updateFabricatorQuery="updateFabricatorQuery"
 					></FabricatorFilter>
 					<ProductFilter
 						v-else
@@ -120,6 +121,23 @@ export default {
 		},
 		updateRegionQuery(value) {
 			this.currentURL.searchParams.set('region', value);
+			history.pushState(
+				'',
+				'',
+				this.currentURL.search.replace(/%3A/gi, ':'),
+			);
+		},
+		updateFabricatorQuery(value) {
+			this.currentURL.searchParams.set('fabricator', value);
+			if (value) {
+				history.pushState(
+					'',
+					'',
+					this.currentURL.search.replace(/%3A/gi, ':'),
+				);
+				return;
+			}
+			this.currentURL.searchParams.delete('fabricator');
 			history.pushState(
 				'',
 				'',
