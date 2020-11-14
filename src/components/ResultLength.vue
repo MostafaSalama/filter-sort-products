@@ -1,5 +1,5 @@
 <template>
-	<div class="offset-md-4 col-12 col-sm-6">
+	<div class="offset-2 results-container col-md-6 col-sm-6">
 		<div class="font-weight-bolder">
 			<h2>
 				<span class="text-primary">{{ productsLength }} results </span>
@@ -18,4 +18,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.results-container {
+	text-align: center;
+}
+</style>

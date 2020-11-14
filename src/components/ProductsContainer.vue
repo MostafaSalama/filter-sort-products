@@ -28,6 +28,7 @@
 						:key="title"
 						:title="title"
 						:values="values"
+						@updateQuery="updateQuery"
 					/>
 				</template>
 			</div>
@@ -70,6 +71,7 @@ export default {
 			filters: [],
 			pagination: {},
 			appliedFilters: [],
+			currentURL: new URL(window.location.href),
 		};
 	},
 	async created() {
@@ -89,6 +91,25 @@ export default {
 	computed: {
 		paginatedProducts() {
 			return this.products.slice(0, this.pagination.pageSize);
+		},
+	},
+	methods: {
+		/**
+		 *
+		 * @param name {string}
+		 * @param values {Array}
+		 */
+		updateQuery(name, values) {
+			if (values.length) {
+				this.currentURL.searchParams.set(name, values.join(':'));
+			} else {
+				this.currentURL.searchParams.delete(name);
+			}
+			history.pushState(
+				'',
+				'',
+				this.currentURL.search.replace(/%3A/gi, ':'),
+			);
 		},
 	},
 };

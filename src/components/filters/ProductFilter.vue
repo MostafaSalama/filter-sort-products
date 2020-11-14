@@ -59,7 +59,11 @@ export default {
 			return this.title[0].toUpperCase() + this.title.substr(1);
 		},
 	},
-	watch: {},
+	watch: {
+		selectedValues(values) {
+			this.$emit('updateQuery', this.title, values);
+		},
+	},
 	methods: {
 		onToggle() {
 			this.toggleText = this.toggleText === '+' ? '-' : '+';

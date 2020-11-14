@@ -1,5 +1,5 @@
 <template>
-	<div class="offset-8">
+	<div class="cold-md-2">
 		<label for="sort_by" class="mr-2">Sort By</label>
 		<select id="sort_by" class="form-inline-control">
 			<option value="newest">newest</option>
