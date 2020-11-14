@@ -4,38 +4,41 @@
 			<!--      for applied filter and sort by and number of results-->
 			<div class="row">
 				<AppliedFilters />
-        <ResultLength :products-length="products.length"/>
-        <SortBy/>
-      </div>
-				<div class="col-md-6 col-12"></div>
+				<ResultLength :products-length="products.length" />
+				<SortBy />
 			</div>
-			<div class="row">
-				<div class="col-md-2 col-12">
-					<template v-for="(values, title) of filters">
-						<RegionFilter
-							v-if="title === 'region'"
-							:regions="values"
-							:key="title"
-						></RegionFilter>
-						<FabricatorFilter
-							:key="title"
-							v-else-if="title === 'fabricator'"
-							:values="values"
-							:title="title"
-						></FabricatorFilter>
-						<ProductFilter
-							v-else
-							:key="title"
-							:title="title"
-							:values="values"
-						/>
-					</template>
-				</div>
-				<div class="col-md-10">
-					<ProductList :products="products" />
-				</div>
+			<div class="col-md-6 col-12"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 col-12">
+				<template v-for="(values, title) of filters">
+					<RegionFilter
+						v-if="title === 'region'"
+						:regions="values"
+						:key="title"
+					></RegionFilter>
+					<FabricatorFilter
+						:key="title"
+						v-else-if="title === 'fabricator'"
+						:values="values"
+						:title="title"
+					></FabricatorFilter>
+					<ProductFilter
+						v-else
+						:key="title"
+						:title="title"
+						:values="values"
+					/>
+				</template>
+			</div>
+			<div class="col-md-10">
+				<ProductList :products="paginatedProducts" />
 			</div>
 		</div>
+		<ProductsPagination
+			:total-pages="pagination.totalPages"
+			:current-page="pagination.currentPage"
+		/>
 	</div>
 </template>
 
@@ -45,14 +48,16 @@ import ProductFilter from '@/components/filters/ProductFilter';
 import RegionFilter from '@/components/filters/RegionFilter';
 import FabricatorFilter from '@/components/filters/FabricatorFilter';
 import AppliedFilters from '@/components/ApliedFilters';
-import ResultLength from "@/components/ResultLength";
-import SortBy from "@/components/SortBy";
+import ResultLength from '@/components/ResultLength';
+import SortBy from '@/components/SortBy';
+import ProductsPagination from '@/components/ProductsPagination';
 
 export default {
 	name: 'ProductsContainer',
 	components: {
-    SortBy,
-    ResultLength,
+		ProductsPagination,
+		SortBy,
+		ResultLength,
 		AppliedFilters,
 		FabricatorFilter,
 		RegionFilter,
@@ -63,6 +68,7 @@ export default {
 		return {
 			products: [],
 			filters: [],
+			pagination: {},
 		};
 	},
 	async created() {
@@ -73,9 +79,15 @@ export default {
 			const data = await response.json();
 			this.products = data.result;
 			this.filters = data.filters;
+			this.pagination = data.pagination;
 		} catch (e) {
 			console.log(e);
 		}
+	},
+	computed: {
+		paginatedProducts() {
+			return this.products.slice(0, this.pagination.pageSize);
+		},
 	},
 };
 </script>

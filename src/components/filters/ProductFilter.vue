@@ -30,6 +30,7 @@
 					:id="value.name"
 					:value="value.code"
 					:checked="value.selected"
+					v-model="selectedValues"
 				/>
 				<label :for="value" class="form-check-label">{{
 					value.name
@@ -45,7 +46,13 @@ export default {
 	data() {
 		return {
 			toggleText: '+',
+			selectedValues: [],
 		};
+	},
+	created() {
+		this.selectedValues = this.values
+			.filter((value) => value.selected)
+			.map((v) => v.code);
 	},
 	computed: {
 		formattedTitle() {
