@@ -18,6 +18,7 @@
 					class="form-check-input"
 					name="selectedRegion"
 					:value="region.code"
+					v-model="selectedRegion"
 				/>
 				<label :for="region" class="form-check-label">
 					{{ region.name }}
@@ -33,7 +34,11 @@ export default {
 	data() {
 		return {
 			toggleText: '+',
+			selectedRegion: '',
 		};
+	},
+	created() {
+		this.selectedRegion = this.regions.filter((r) => r.selected)[0].code;
 	},
 	methods: {
 		onToggle() {
