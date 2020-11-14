@@ -5,7 +5,11 @@
 			<div class="row">
 				<AppliedFilters :applied-filters="appliedFilters" />
 				<ResultLength :products-length="products.length" />
-				<SortBy />
+				<SortBy
+					@updateSortQuery="updateSortQuery"
+					:sort-by="pagination.sort"
+					:sort-values="sortValues"
+				/>
 			</div>
 			<div class="col-md-6 col-12"></div>
 		</div>
@@ -75,6 +79,7 @@ export default {
 			pagination: {},
 			appliedFilters: [],
 			currentURL: new URL(window.location.href),
+			sortValues: [],
 		};
 	},
 	async created() {
@@ -87,6 +92,7 @@ export default {
 			this.filters = data.filters;
 			this.pagination = data.pagination;
 			this.appliedFilters = data.appliedfilters;
+			this.sortValues = data.sortby;
 		} catch (e) {
 			console.log(e);
 		}
@@ -147,6 +153,14 @@ export default {
 		},
 		updatePageQuery(value) {
 			this.currentURL.searchParams.set('page', value);
+			history.pushState(
+				'',
+				'',
+				this.currentURL.search.replace(/%3A/gi, ':'),
+			);
+		},
+		updateSortQuery(value) {
+			this.currentURL.searchParams.set('sortBy', value);
 			history.pushState(
 				'',
 				'',
