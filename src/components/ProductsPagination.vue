@@ -20,14 +20,13 @@ export default {
 	name: 'ProductsPagination',
 	data() {
 		return {
-			selectedPage: 0,
+			selectedPage: this.currentPage,
 		};
 	},
-	created() {},
+	created() {
+		this.$emit('updatePageQuery', this.selectedPage, true);
+	},
 	watch: {
-		currentPage(value) {
-			this.selectedPage = value;
-		},
 		selectedPage(value) {
 			this.$emit('updatePageQuery', value);
 		},

@@ -15,13 +15,12 @@ export default {
 	name: 'SortBy',
 	data() {
 		return {
-			selectedSort: '',
+			selectedSort: this.sortValues.filter((value) => value.selected)[0]
+				.code,
 		};
 	},
 	created() {
-		this.selectedSort = this.sortValues.filter(
-			(value) => value.selected,
-		)[0].code;
+		this.$emit('updateSortQuery', this.selectedSort, true);
 	},
 	watch: {
 		selectedSort(value) {

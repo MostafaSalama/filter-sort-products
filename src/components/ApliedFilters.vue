@@ -15,7 +15,7 @@
 				{{ filter }}
 				<span
 					class="btn-close text-secondary"
-					@click="console.log('clicked')"
+					@click="clearFilter(filter)"
 					>&times;</span
 				>
 			</span>
@@ -28,17 +28,25 @@ export default {
 	name: 'AppliedFilters',
 	data() {
 		return {
-			currentAppliedFilters: [],
+			currentAppliedFilters: this.appliedFilters,
 		};
+	},
+	created() {
+		this.$emit('updateAppliedFilterQuery', this.appliedFilters, true);
 	},
 	methods: {
 		clearAppliedFilters() {
 			this.currentAppliedFilters = [];
 		},
+		clearFilter(filter) {
+			this.currentAppliedFilters = this.currentAppliedFilters.filter(
+				(f) => f !== filter,
+			);
+		},
 	},
 	watch: {
-		appliedFilters(values) {
-			this.currentAppliedFilters = values;
+		currentAppliedFilters(values) {
+			this.$emit('updateAppliedFilterQuery', values);
 		},
 	},
 	props: {

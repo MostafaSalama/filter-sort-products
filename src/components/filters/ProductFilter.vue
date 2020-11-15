@@ -16,6 +16,7 @@
 						class="form-control"
 						:placeholder="`search ${title}`"
 						:name="`search_${title}`"
+						@input="changeCurrentSearchValues"
 					/>
 				</label>
 			</div>
@@ -24,7 +25,7 @@
 					Clear all
 				</button>
 			</div>
-			<div class="form-check" v-for="value of values">
+			<div class="form-check" v-for="value of currentSearchedValues">
 				<input
 					type="checkbox"
 					class="form-check-input"
@@ -32,7 +33,7 @@
 					:id="value.name"
 					:value="value.code"
 					:checked="value.selected"
-					v-model="selectedValues"
+					v-model.lazy="selectedValues"
 				/>
 				<label :for="value" class="form-check-label">{{
 					value.name
@@ -48,13 +49,15 @@ export default {
 	data() {
 		return {
 			toggleText: '+',
-			selectedValues: [],
+			selectedValues: (this.selectedValues = this.values
+				.filter((value) => value.selected)
+				.map((v) => v.code)),
+			currentSearchedValues: this.values,
+			searchValue: '',
 		};
 	},
 	created() {
-		this.selectedValues = this.values
-			.filter((value) => value.selected)
-			.map((v) => v.code);
+		this.$emit('updateQuery', this.title, this.selectedValues, true);
 	},
 	computed: {
 		formattedTitle() {
@@ -71,7 +74,13 @@ export default {
 			this.toggleText = this.toggleText === '+' ? '-' : '+';
 		},
 		clearSelectedValues() {
+			if (!this.selectedValues.length) return;
 			this.selectedValues = [];
+		},
+		changeCurrentSearchValues(e) {
+			this.currentSearchedValues = this.values.filter((v) =>
+				v.name.toLowerCase().includes(e.target.value.toLowerCase()),
+			);
 		},
 	},
 	props: {
@@ -86,19 +95,24 @@ export default {
 	display: flex;
 	flex-direction: row;
 }
+
 .search-container {
 	margin-top: 10px;
 }
+
 .search-container > label {
 	font-style: italic;
 	text-align: center;
 }
+
 .clear-container {
 	text-align: right;
 }
+
 .toggle-title {
 	margin: auto 0;
 }
+
 .toggle {
 	justify-self: flex-end;
 	margin-left: auto;

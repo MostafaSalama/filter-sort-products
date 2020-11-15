@@ -34,11 +34,11 @@ export default {
 	data() {
 		return {
 			toggleText: '+',
-			selectedRegion: '',
+			selectedRegion: this.regions.filter((r) => r.selected)[0].code,
 		};
 	},
 	created() {
-		this.selectedRegion = this.regions.filter((r) => r.selected)[0].code;
+		this.$emit('updateRegionQuery', this.selectedRegion, true);
 	},
 	watch: {
 		selectedRegion(value) {
