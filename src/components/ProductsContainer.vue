@@ -57,11 +57,6 @@
 							@updateQuery="updateQuery"
 						/>
 					</template>
-					<div style="text-align: left">
-						<a @click="toggleAdvancedOptions" class="btn btn-link">
-							{{ showAdvancedText }}
-						</a>
-					</div>
 					<div v-if="showAdvancedOptions">
 						<ProductFilter
 							v-for="filter of advancedFilters"
@@ -70,6 +65,11 @@
 							:values="filter[1]"
 							@updateQuery="updateQuery"
 						/>
+					</div>
+					<div style="text-align: left">
+						<a @click="toggleAdvancedOptions" class="btn btn-link">
+							{{ showAdvancedText }}
+						</a>
 					</div>
 				</div>
 				<div class="col-md-10">

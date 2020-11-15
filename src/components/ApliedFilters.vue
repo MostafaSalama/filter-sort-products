@@ -9,10 +9,10 @@
 			</div>
 			<span
 				class="badge m-2 p-2 badge-bill badge-light text-primary"
-				v-for="filter of currentAppliedFilters"
-				:key="filter"
+				v-for="filter of appliedFilters"
+				:key="filter.name"
 			>
-				{{ filter }}
+				{{ filter.name }}
 				<span
 					class="btn-close text-secondary"
 					@click="clearFilter(filter)"
@@ -28,19 +28,24 @@ export default {
 	name: 'AppliedFilters',
 	data() {
 		return {
-			currentAppliedFilters: this.appliedFilters,
+			currentAppliedFilters: this.appliedFilters.map((f) => f.code),
 		};
 	},
 	created() {
-		this.$emit('updateAppliedFilterQuery', this.appliedFilters, true);
+		this.$emit(
+			'updateAppliedFilterQuery',
+			this.currentAppliedFilters,
+			true,
+		);
 	},
 	methods: {
 		clearAppliedFilters() {
+			if (!this.currentAppliedFilters.length) return;
 			this.currentAppliedFilters = [];
 		},
 		clearFilter(filter) {
 			this.currentAppliedFilters = this.currentAppliedFilters.filter(
-				(f) => f !== filter,
+				(f) => f !== filter.code,
 			);
 		},
 	},
