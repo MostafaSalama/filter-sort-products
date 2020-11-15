@@ -31,6 +31,10 @@
 			<div class="col-md-6 col-12"></div>
 			<div class="row">
 				<div :class="filterClasses">
+					<InActiveProjectsFilter
+						:hide-in-active-projects="hideInActiveProjects"
+						@updateInActiveQuery="updateInActiveQuery"
+					/>
 					<template v-for="(values, title, index) of filters">
 						<RegionFilter
 							v-if="title === 'region'"
@@ -92,10 +96,12 @@ import SortBy from '@/components/SortBy';
 import ProductsPagination from '@/components/ProductsPagination';
 import { ListLoader } from 'vue-content-loader';
 import queryMixin from '@/mixins/queryMixin';
+import InActiveProjectsFilter from '@/components/filters/InActiveProjectsFilter';
 
 export default {
 	name: 'ProductsContainer',
 	components: {
+		InActiveProjectsFilter,
 		ProductsPagination,
 		SortBy,
 		ResultLength,
@@ -117,6 +123,7 @@ export default {
 			appliedFilters: [],
 			currentURL: new URL(window.location.href),
 			sortValues: [],
+			hideInActiveProjects: false,
 			isLoading: true,
 			displayFilters: true,
 			showAdvancedText: 'See more advanced filters >',
@@ -162,8 +169,8 @@ export default {
 				);
 				this.pagination = data.pagination;
 				this.appliedFilters = data.appliedfilters;
-				console.log(this.appliedFilters);
 				this.sortValues = data.sortby;
+				this.hideInActiveProjects = data.hideinactiveprojects;
 				this.isLoading = false;
 			} catch (e) {
 				console.log(e);

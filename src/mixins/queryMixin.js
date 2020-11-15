@@ -154,6 +154,24 @@ const queryMixin = {
 			}
 			this.fetchProducts();
 		},
+		updateInActiveQuery(value, firstTime) {
+			if (firstTime) {
+				this.currentURL.searchParams.set('hideInactiveProjects', value);
+				history.pushState(
+					'',
+					'',
+					this.currentURL.search.replace(/%3A/gi, ':'),
+				);
+				return;
+			}
+			this.currentURL.searchParams.set('hideInactiveProjects', value);
+			history.pushState(
+				'',
+				'',
+				this.currentURL.search.replace(/%3A/gi, ':'),
+			);
+			this.fetchProducts();
+		},
 	},
 };
 export default queryMixin;
