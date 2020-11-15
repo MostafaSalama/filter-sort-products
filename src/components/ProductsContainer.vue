@@ -31,7 +31,7 @@
 			<div class="col-md-6 col-12"></div>
 			<div class="row">
 				<div :class="filterClasses">
-					<template v-for="(values, title) of filters">
+					<template v-for="(values, title, index) of filters">
 						<RegionFilter
 							v-if="title === 'region'"
 							:regions="values"
@@ -46,13 +46,27 @@
 							@updateFabricatorQuery="updateFabricatorQuery"
 						></FabricatorFilter>
 						<ProductFilter
-							v-else
+							v-else-if="index + 3 < filtersEntries.length"
 							:key="title"
 							:title="title"
 							:values="values"
 							@updateQuery="updateQuery"
 						/>
 					</template>
+					<div style="text-align: left">
+						<a @click="toggleAdvancedOptions" class="btn btn-link">
+							{{ showAdvancedText }}
+						</a>
+					</div>
+					<div v-if="showAdvancedOptions">
+						<ProductFilter
+							v-for="filter of advancedFilters"
+							:key="filter[0]"
+							:title="filter[0]"
+							:values="filter[1]"
+							@updateQuery="updateQuery"
+						/>
+					</div>
 				</div>
 				<div class="col-md-10">
 					<ProductList :products="paginatedProducts" />
@@ -97,12 +111,16 @@ export default {
 		return {
 			products: [],
 			filters: [],
+			advancedFilters: [],
+			filtersEntries: [],
 			pagination: {},
 			appliedFilters: [],
 			currentURL: new URL(window.location.href),
 			sortValues: [],
 			isLoading: true,
 			displayFilters: true,
+			showAdvancedText: 'See more advanced filters >',
+			showAdvancedOptions: false,
 			baseURL: 'http://www.amock.io/api/nithish.cir/projects',
 		};
 	},
@@ -137,6 +155,11 @@ export default {
 				const data = await response.json();
 				this.products = data.result;
 				this.filters = data.filters;
+				// used to display the last 3 as advanced filters
+				this.filtersEntries = Object.entries(data.filters);
+				this.advancedFilters = this.filtersEntries.slice(
+					this.filtersEntries.length - 3,
+				);
 				this.pagination = data.pagination;
 				this.appliedFilters = data.appliedfilters;
 				console.log(this.appliedFilters);
@@ -148,6 +171,13 @@ export default {
 		},
 		onDropMenuClicked() {
 			this.displayFilters = !this.displayFilters;
+		},
+		toggleAdvancedOptions() {
+			this.showAdvancedText =
+				this.showAdvancedText === 'See more advanced filters >'
+					? 'See less filters <'
+					: 'See more advanced filters >';
+			this.showAdvancedOptions = !this.showAdvancedOptions;
 		},
 	},
 };
