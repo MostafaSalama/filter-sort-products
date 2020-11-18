@@ -68,6 +68,11 @@ export default {
 		selectedValues(values) {
 			this.$emit('updateQuery', this.title, values);
 		},
+		values(values) {
+			this.selectedValues = this.values
+				.filter((value) => value.selected)
+				.map((v) => v.code);
+		},
 	},
 	methods: {
 		onToggle() {

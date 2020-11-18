@@ -42,6 +42,17 @@ export default {
 		selected(value) {
 			this.$emit('updateFabricatorQuery', value);
 		},
+		values(newValues) {
+			const currentSelected = this.values.filter((r) => r.selected)[0];
+			if (!currentSelected) {
+				this.selected = '';
+				return;
+			}
+			const currentCode = currentSelected.code;
+			if (currentCode !== this.selected) {
+				this.selected = currentSelected;
+			}
+		},
 	},
 	methods: {
 		onToggle() {

@@ -44,6 +44,14 @@ export default {
 		selectedRegion(value) {
 			this.$emit('updateRegionQuery', value);
 		},
+		regions() {
+			const currentSelected = this.regions.filter((r) => r.selected)[0];
+			if (!currentSelected) return;
+			const currentCode = currentSelected.code;
+			if (currentCode !== this.selectedRegion) {
+				this.selectedRegion = currentSelected;
+			}
+		},
 	},
 	methods: {
 		onToggle() {
@@ -61,19 +69,24 @@ export default {
 	display: flex;
 	flex-direction: row;
 }
+
 .search-container {
 	margin-top: 10px;
 }
+
 .search-container > label {
 	font-style: italic;
 	text-align: center;
 }
+
 .clear-container {
 	text-align: right;
 }
+
 .toggle-title {
 	margin: auto 0;
 }
+
 .toggle {
 	justify-self: flex-end;
 	margin-left: auto;
