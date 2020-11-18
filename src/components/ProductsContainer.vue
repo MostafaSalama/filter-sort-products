@@ -20,6 +20,7 @@
 				<AppliedFilters
 					@updateAppliedFilterQuery="updateAppliedFilterQuery"
 					:applied-filters="appliedFilters"
+					@clearSelectedFilter="clearSelectedFilter"
 				/>
 				<ResultLength :products-length="products.length" />
 				<SortBy
@@ -198,6 +199,18 @@ export default {
 				appliedFilters.push(...selectedValues);
 			}
 			return appliedFilters;
+		},
+
+		// used to clear a selected filter value
+		clearSelectedFilter(selectedValue) {
+			const filterName = selectedValue.filter;
+			let filterValues = this.filters[filterName];
+			filterValues = filterValues.map((value) => {
+				return value.code === selectedValue.code
+					? { ...value, selected: false }
+					: value;
+			});
+			this.filters = { ...this.filters, [filterName]: filterValues };
 		},
 	},
 };
