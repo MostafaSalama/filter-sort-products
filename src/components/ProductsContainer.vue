@@ -160,16 +160,17 @@ export default {
 				this.isLoading = true;
 				const response = await fetch(this.baseURL);
 				const data = await response.json();
-				this.products = data.result;
+				this.products = data.results;
 				this.filters = data.filters;
 				// used to display the last 3 as advanced filters
 				this.filtersEntries = Object.entries(data.filters);
+				// debugger;
 				this.advancedFilters = this.filtersEntries.slice(
 					this.filtersEntries.length - 3,
 				);
 				this.pagination = data.pagination;
-				this.appliedFilters = data.appliedfilters;
-				this.sortValues = data.sortby;
+				// this.appliedFilters = data.appliedfilters;
+				this.sortValues = data.sortBy;
 				this.hideInActiveProjects = data.hideinactiveprojects;
 				this.isLoading = false;
 			} catch (e) {
