@@ -203,19 +203,24 @@ export default {
 		},
 
 		// used to clear a selected filter value
-		clearSelectedFilter(selectedValue) {
-			const filterName = selectedValue.filter;
-			let filterValues = this.filters[filterName];
-			filterValues = filterValues.map((value) => {
-				return value.code === selectedValue.code
-					? { ...value, selected: false }
-					: value;
-			});
-			this.filters = { ...this.filters, [filterName]: filterValues };
-			this.filtersEntries = Object.entries(this.filters);
-			this.advancedFilters = this.filtersEntries.slice(
-				this.filtersEntries.length - 3,
-			);
+		clearSelectedFilter (selectedValue) {
+			if (selectedValue.filter === "region") {
+				this.clearAllSelectedFilters();
+			} else {
+				const filterName = selectedValue.filter;
+				let filterValues = this.filters[filterName];
+				filterValues = filterValues.map((value) => {
+					return value.code === selectedValue.code
+						? { ...value, selected: false }
+						: value;
+				});
+				this.filters = { ...this.filters, [filterName]: filterValues };
+				this.filtersEntries = Object.entries(this.filters);
+				this.advancedFilters = this.filtersEntries.slice(
+					this.filtersEntries.length - 3,
+				);
+			}
+
 		},
 		clearAllSelectedFilters() {
 			this.currentURL.search = '';
