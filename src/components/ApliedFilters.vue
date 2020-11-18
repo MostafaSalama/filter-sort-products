@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-2 col-12 col-sm-6">
+	<div class="col-md-4 col-12 col-sm-6">
 		<h3>Applied Filters</h3>
 		<div>
 			<div class="clear-container">
@@ -32,11 +32,11 @@ export default {
 		};
 	},
 	created() {
-		this.$emit(
+		/*	this.$emit(
 			'updateAppliedFilterQuery',
 			this.currentAppliedFilters,
 			true,
-		);
+		);*/
 	},
 	methods: {
 		clearAppliedFilters() {
@@ -51,7 +51,7 @@ export default {
 	},
 	watch: {
 		currentAppliedFilters(values) {
-			this.$emit('updateAppliedFilterQuery', values);
+			// this.$emit('updateAppliedFilterQuery', values);
 		},
 	},
 	props: {

@@ -164,13 +164,12 @@ export default {
 				this.filters = data.filters;
 				// used to display the last 3 as advanced filters
 				this.filtersEntries = Object.entries(data.filters);
-				// debugger;
 				this.advancedFilters = this.filtersEntries.slice(
 					this.filtersEntries.length - 3,
 				);
 				this.pagination = data.pagination;
-				// this.appliedFilters = data.appliedfilters;
 				this.sortValues = data.sortBy;
+				this.appliedFilters = this.getAppliedFilters(this.filters);
 				this.hideInActiveProjects = data.hideinactiveprojects;
 				this.isLoading = false;
 			} catch (e) {
@@ -186,6 +185,19 @@ export default {
 					? 'See less filters <'
 					: 'See more advanced filters >';
 			this.showAdvancedOptions = !this.showAdvancedOptions;
+		},
+		getAppliedFilters(filters) {
+			const appliedFilters = [];
+			for (let prop in filters) {
+				const currentFilterValues = filters[prop];
+				const selectedValues = currentFilterValues
+					.filter((v) => v.selected)
+					.map((v) => {
+						return { filter: prop, ...v };
+					});
+				appliedFilters.push(...selectedValues);
+			}
+			return appliedFilters;
 		},
 	},
 };

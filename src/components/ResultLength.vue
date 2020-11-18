@@ -1,5 +1,5 @@
 <template>
-	<div class="offset-2 results-container col-md-6 col-sm-6">
+	<div class="results-container col-md-6 col-sm-6">
 		<div class="font-weight-bolder">
 			<h2>
 				<span class="text-primary">{{ productsLength }} results </span>
