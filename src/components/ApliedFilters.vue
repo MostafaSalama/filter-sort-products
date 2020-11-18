@@ -40,8 +40,7 @@ export default {
 	},
 	methods: {
 		clearAppliedFilters() {
-			if (!this.currentAppliedFilters.length) return;
-			this.currentAppliedFilters = [];
+			this.$emit('clearAllSelectedFilters');
 		},
 		clearFilter(selectedValue) {
 			this.$emit('clearSelectedFilter', selectedValue);

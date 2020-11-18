@@ -21,6 +21,7 @@
 					@updateAppliedFilterQuery="updateAppliedFilterQuery"
 					:applied-filters="appliedFilters"
 					@clearSelectedFilter="clearSelectedFilter"
+					@clearAllSelectedFilters="clearAllSelectedFilters"
 				/>
 				<ResultLength :products-length="products.length" />
 				<SortBy
@@ -58,7 +59,7 @@
 							@updateQuery="updateQuery"
 						/>
 					</template>
-					<div v-if="showAdvancedOptions">
+					<div v-show="showAdvancedOptions">
 						<ProductFilter
 							v-for="filter of advancedFilters"
 							:key="filter[0]"
@@ -211,6 +212,17 @@ export default {
 					: value;
 			});
 			this.filters = { ...this.filters, [filterName]: filterValues };
+			this.filtersEntries = Object.entries(this.filters);
+			this.advancedFilters = this.filtersEntries.slice(
+				this.filtersEntries.length - 3,
+			);
+		},
+		clearAllSelectedFilters() {
+			this.currentURL.search = '';
+			this.currentURL.searchParams.set('region', 'all');
+			this.currentURL.searchParams.set('page', '1');
+			this.currentURL.searchParams.set('sortBy', 'newest');
+			this.fetchProducts();
 		},
 	},
 };
