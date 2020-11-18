@@ -43,10 +43,8 @@ export default {
 			if (!this.currentAppliedFilters.length) return;
 			this.currentAppliedFilters = [];
 		},
-		clearFilter(filter) {
-			this.currentAppliedFilters = this.currentAppliedFilters.filter(
-				(f) => f !== filter.code,
-			);
+		clearFilter(selectedValue) {
+			this.$emit('clearSelectedFilter', selectedValue);
 		},
 	},
 	watch: {
