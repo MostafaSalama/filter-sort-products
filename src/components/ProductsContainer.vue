@@ -130,7 +130,7 @@ export default {
 			displayFilters: true,
 			showAdvancedText: 'See more advanced filters >',
 			showAdvancedOptions: false,
-			baseURL: 'http://www.amock.io/api/nithish.cir/projects',
+			baseURL: 'https://5fca1f2c3c1c220016441bd2.mockapi.io/projects/productdata',
 		};
 	},
 	async created() {
@@ -161,7 +161,8 @@ export default {
 				console.log(urlToFetchDataFrom);
 				this.isLoading = true;
 				const response = await fetch(this.baseURL);
-				const data = await response.json();
+				const parseddata = await response.json();
+				const data = parseddata[0];
 				this.products = data.results;
 				this.filters = data.filters;
 				// used to display the last 3 as advanced filters
