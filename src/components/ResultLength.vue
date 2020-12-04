@@ -1,25 +1,19 @@
 <template>
-	<div class="results-container col-md-6 col-sm-6">
-		<div class="font-weight-bolder">
-			<h2>
-				<span class="text-primary">{{ productsLength }} results </span>
-				for the filter selected
-			</h2>
-		</div>
-	</div>
+ <div>
+  <span class="result-count">{{ projectsLength }} {{ resultsLabel }}</span>
+  <span class="result-text">{{ filterSelectedLabel }}</span>
+ </div>
 </template>
 
 <script>
 export default {
-	name: 'ResultLength',
-	props: {
-		productsLength: Number,
-	},
+ name: "ResultLength",
+ props: {
+  projectsLength: Number,
+  resultsLabel: String,
+  filterSelectedLabel: String
+ }
 };
 </script>
 
-<style scoped>
-.results-container {
-	text-align: center;
-}
-</style>
+ 

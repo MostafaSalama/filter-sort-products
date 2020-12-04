@@ -6,7 +6,7 @@ const queryMixin = {
 		 * @param values {Array}
 		 * @param firstTime {boolean}
 		 */
-		updateQuery(name, values, firstTime = false) {
+		updateQuery (name, values, firstTime = false) {
 			if (firstTime) {
 				if (values.length) {
 					this.currentURL.searchParams.set(name, values.join(':'));
@@ -35,9 +35,9 @@ const queryMixin = {
 					this.currentURL.search.replace(/%3A/gi, ':'),
 				);
 			}
-			this.fetchProducts();
+			this.fetchprojects();
 		},
-		updateRegionQuery(value, firstTime) {
+		updateRegionQuery (value, firstTime) {
 			if (firstTime) {
 				this.currentURL.searchParams.set('region', value);
 				history.pushState(
@@ -53,9 +53,9 @@ const queryMixin = {
 				'',
 				this.currentURL.search.replace(/%3A/gi, ':'),
 			);
-			this.fetchProducts();
+			this.fetchprojects();
 		},
-		updateFabricatorQuery(value, firstTime) {
+		updateFabricatorQuery (value, firstTime) {
 			if (firstTime) {
 				if (value) {
 					this.currentURL.searchParams.set('fabricator', value);
@@ -82,9 +82,9 @@ const queryMixin = {
 					this.currentURL.search.replace(/%3A/gi, ':'),
 				);
 			}
-			this.fetchProducts();
+			this.fetchprojects();
 		},
-		updatePageQuery(value, firstTime) {
+		updatePageQuery (value, firstTime) {
 			if (firstTime) {
 				this.currentURL.searchParams.set('page', value);
 				history.pushState(
@@ -100,9 +100,9 @@ const queryMixin = {
 				'',
 				this.currentURL.search.replace(/%3A/gi, ':'),
 			);
-			this.fetchProducts();
+			this.fetchprojects();
 		},
-		updateSortQuery(value, firstTime) {
+		updateSortQuery (value, firstTime) {
 			if (firstTime) {
 				this.currentURL.searchParams.set('sortBy', value);
 				history.pushState(
@@ -118,9 +118,10 @@ const queryMixin = {
 				'',
 				this.currentURL.search.replace(/%3A/gi, ':'),
 			);
-			this.fetchProducts();
+			this.fetchprojects();
+			this.makeActive('projectsListView');
 		},
-		updateAppliedFilterQuery(values, firstTime) {
+		updateAppliedFilterQuery (values, firstTime) {
 			if (firstTime) {
 				this.currentURL.searchParams.set(
 					'appliedFilters',
@@ -152,9 +153,9 @@ const queryMixin = {
 					this.currentURL.search.replace(/%3A/gi, ':'),
 				);
 			}
-			this.fetchProducts();
+			this.fetchprojects();
 		},
-		updateInActiveQuery(value, firstTime) {
+		updateInActiveQuery (value, firstTime) {
 			if (firstTime) {
 				this.currentURL.searchParams.set('hideInactiveProjects', value);
 				history.pushState(
@@ -170,7 +171,7 @@ const queryMixin = {
 				'',
 				this.currentURL.search.replace(/%3A/gi, ':'),
 			);
-			this.fetchProducts();
+			this.fetchprojects();
 		},
 	},
 };
