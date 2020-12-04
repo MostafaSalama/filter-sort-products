@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="<%= BASE_URL %>main.css">
     <title>vue-app</title>
   </head>
+
   <body>
     <noscript>
       <strong>We're sorry but vue-app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js" integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
+      crossorigin="anonymous"></script>
+
+    <div id="jsprojectlisting" class="initializeProjectList initializeProjectListContainer" aem-comp="initializeProjectList"
+      ref="initializeProjectList" data-label-search="Search" data-label-applied-filters="Applied Filters"
+      data-label-region="Region" data-label-country="Country" data-label-city="City" data-label-projecttype="Project Type"
+      data-label-fabricator="Fabricator" data-label-architect="Architect" data-label-glazier="Glazier"
+      data-label-filters="Filters" data-label-show-more="See more advanced filters" data-label-show-less="See less advanced filters"
+      data-label-clearall="Clear all" data-label-sortby="Sort by" data-label-results="result(s)"
+      data-label-filter-selected="for the filter selected" data-label-close="close" data-label-no-result-found="Sorry there is no corresponding result."
+      data-label-see-what-possible="See what’s possible™" data-label-try-to-change-filter="Try to change your filters to"
+      data-endpoint="/content/guardianindustriesholdings/north-america/us/en/projects/jcr:content/root/responsivegrid/projects_listing.getProjects.html">
+
+      <div id="app"></div>
+
+    </div>
     <!-- built files will be auto injected -->
   </body>
+
 </html>
