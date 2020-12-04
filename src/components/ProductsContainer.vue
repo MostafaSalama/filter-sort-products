@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import "isomorphic-fetch";
 import ProductList from '@/components/ProductList';
 import ProductFilter from '@/components/filters/ProductFilter';
 import RegionFilter from '@/components/filters/RegionFilter';
